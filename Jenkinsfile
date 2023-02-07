@@ -3,7 +3,6 @@ pipeline {
     stages {
         stage('Compile and Clean') { 
             steps {
-                // Run Maven on a Unix agent.  
                 sh "mvn clean compile"
             }
         }
@@ -22,9 +21,8 @@ pipeline {
             }
         }
         stage('Docker deploy'){
-            steps {
-               
-                sh 'docker run -itd -p  9000:9000 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}'
+            steps {    
+        		sh "docker run -itd -p 9000:9000 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}"
             }
         }
         stage('Archving') { 
@@ -34,4 +32,3 @@ pipeline {
         }
     }
 }
-
