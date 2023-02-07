@@ -20,28 +20,15 @@ pipeline {
         stage('Build Docker image'){
           
             steps {
-                echo "Hello"
+                echo "Hello building docker image"
                 sh 'ls'
                 sh 'docker build -t  onetrip/docker_jenkins_springboot:${BUILD_NUMBER} .'
-            }
-        }
-        stage('Docker Login'){
-            
-            steps {
-                 withCredentials([string(credentialsId: 'DockerId', variable: 'Dockerpwd')]) {
-                    sh "docker login -u anvbhaskar -p ${Dockerpwd}"
-                }
-            }                
-        }
-        stage('Docker Push'){
-            steps {
-                sh 'docker push onetrip/docker_jenkins_springboot:${BUILD_NUMBER}'
             }
         }
         stage('Docker deploy'){
             steps {
                
-                sh 'docker run -itd -p  8081:8080 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}'
+                sh 'docker run -itd -p  9000:9000 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}'
             }
         }
         stage('Archving') { 
