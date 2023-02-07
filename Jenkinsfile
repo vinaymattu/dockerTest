@@ -24,7 +24,7 @@ pipeline {
         stage('Docker deploy'){
             steps {
                
-                sh 'docker run -itd -p  8081:8080 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}'
+                sh 'docker run -itd -p  9000:9000 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}'
             }
         }
         stage('Archving') { 
