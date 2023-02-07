@@ -1,9 +1,5 @@
 pipeline {
     agent any 
-    tools {
-        maven "3.8.5"
-    
-    }
     stages {
         stage('Compile and Clean') { 
             steps {
@@ -20,7 +16,7 @@ pipeline {
         stage('Build Docker image'){
           
             steps {
-                echo "Hello building docker image"
+                echo "Hello"
                 sh 'ls'
                 sh 'docker build -t  onetrip/docker_jenkins_springboot:${BUILD_NUMBER} .'
             }
@@ -28,7 +24,7 @@ pipeline {
         stage('Docker deploy'){
             steps {
                
-                sh 'docker run -itd -p  9000:9000 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}'
+                sh 'docker run -itd -p  8081:8080 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}'
             }
         }
         stage('Archving') { 
