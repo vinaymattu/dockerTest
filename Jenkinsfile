@@ -6,7 +6,7 @@ pipeline {
                 sh "mvn clean compile"
             }
         }
-        stage('deploy') { 
+        stage('Creating build') { 
             
             steps {
                 sh "mvn package -DskipTests"
@@ -22,7 +22,9 @@ pipeline {
         }
         stage('Docker deploy'){
             steps {    
-                sh "docker run -itd -p 9000:9000 onetrip/backend_app"
+                sh "docker stop onetrip/backend_app"
+                sh "docker rm onetrip/backend_app"
+                sh "docker run -itd -p 9000:9000 --name onetrip/backend_app onetrip/backend_app"
             }
         }
         stage('Archving') { 
