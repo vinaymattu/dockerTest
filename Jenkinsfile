@@ -17,17 +17,12 @@ pipeline {
             steps {
                 echo "Hello"
                 sh 'ls'
-                sh 'docker build -t onetrip/backend_app:${BUILD_NUMBER} .'
-            }
-        }
-        stage('Kill running Spring Boot instance'){
-            steps {
-                sh 'docker ps | grep "onetrip/docker_jenkins_springboot" | awk "{print $1}" | xargs docker stop'
+                sh 'docker build -t onetrip/backend_app .'
             }
         }
         stage('Docker deploy'){
             steps {    
-                sh "docker run -itd -p 9000:9000 onetrip/backend_app:${BUILD_NUMBER}"
+                sh "docker run -itd -p 9000:9000 onetrip/backend_app"
             }
         }
         stage('Archving') { 
