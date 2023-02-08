@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo "Hello"
                 sh 'ls'
-                sh 'docker build -t onetrip/docker_jenkins_springboot:${BUILD_NUMBER} .'
+                sh 'docker build -t onetrip/backend_app:${BUILD_NUMBER} .'
             }
         }
         stage('Kill running Spring Boot instance'){
@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Docker deploy'){
             steps {    
-                sh "docker run -itd -p 9000:9000 onetrip/docker_jenkins_springboot:${BUILD_NUMBER}"
+                sh "docker run -itd -p 9000:9000 onetrip/backend_app:${BUILD_NUMBER}"
             }
         }
         stage('Archving') { 
