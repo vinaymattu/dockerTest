@@ -15,21 +15,22 @@ pipeline {
         stage('Build Docker image'){
           
             steps {
-                echo "Hello"
+                echo "Building Docker Image"
                 sh 'ls'
                 sh 'docker build -t onetrip/backend_app .'
             }
         }
         stage('Docker deploy'){
-            steps {    
-                sh "docker stop onetrip/backend_app"
-                sh "docker rm onetrip/backend_app"
+            steps {
+                sh "docker stop onetrip/backend_app || true"
+                sh "docker rm onetrip/backend_app || true"
                 sh "docker run -itd -p 9000:9000 --name onetrip/backend_app onetrip/backend_app"
             }
         }
-        stage('Archving') { 
+        stage('Archiving') { 
             steps {
-                 archiveArtifacts '**/target/*.jar'
+                echo "Archiving artifacts"
+                archiveArtifacts '**/target/*.jar'
             }
         }
     }
