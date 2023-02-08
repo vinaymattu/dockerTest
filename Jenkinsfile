@@ -17,14 +17,14 @@ pipeline {
             steps {
                 echo "Building Docker Image"
                 sh 'ls'
-                sh 'docker build -t onetrip/backendapp .'
+                sh 'docker build -t backendapp .'
             }
         }
         stage('Docker deploy'){
             steps {
-                sh "docker stop onetrip/backendapp || true"
-                sh "docker rm onetrip/backendapp || true"
-                sh "docker run -itd -p 9000:9000 --name onetrip/backendapp onetrip/backendapp"
+                sh "docker stop backendapp || true"
+                sh "docker rm backendapp || true"
+                sh "docker run -itd -p 9000:9000 --name backendapp backendapp"
             }
         }
         stage('Archiving') { 
