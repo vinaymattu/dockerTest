@@ -1,6 +1,12 @@
 pipeline {
     agent any 
     stages {
+    	 stage('Stop Docker Container'){
+            steps {
+                sh "docker stop backendapp || true"
+                sh "docker rm backendapp || true"
+            }
+        }
         stage('Compile and Clean') { 
             steps {
                 sh "mvn clean compile"
@@ -22,8 +28,6 @@ pipeline {
         }
         stage('Docker deploy'){
             steps {
-                sh "docker stop backendapp || true"
-                sh "docker rm backendapp || true"
                 sh "docker run -itd -p 9000:9000 --name backendapp backendapp"
             }
         }
